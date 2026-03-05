@@ -1,10 +1,12 @@
 ﻿#if UNITY_WEBGL && DOUYINMINIGAME
-using UnityEngine.Networking;
-using UnityEngine;
 using TTSDK;
+using UnityEngine;
+using UnityEngine.Networking;
+using YooAsset;
 
-namespace YooAsset
+namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime.Operation.@internal
 {
+    [UnityEngine.Scripting.Preserve]
     public class UnityTiktokAssetBundleRequestOperation : UnityWebRequestOperation
     {
         protected enum ESteps
@@ -22,22 +24,28 @@ namespace YooAsset
         /// <summary>
         /// 请求结果
         /// </summary>
+        [UnityEngine.Scripting.Preserve]
         public AssetBundle Result { private set; get; }
 
-        internal UnityTiktokAssetBundleRequestOperation(PackageBundle bundle, string url) : base(url)
+        [UnityEngine.Scripting.Preserve]
+        public UnityTiktokAssetBundleRequestOperation(PackageBundle bundle, string url) : base(url)
         {
             _packageBundle = bundle;
         }
 
+        [UnityEngine.Scripting.Preserve]
         protected override void InternalStart()
         {
             _steps = ESteps.CreateRequest;
         }
 
+        [UnityEngine.Scripting.Preserve]
         protected override void InternalUpdate()
         {
             if (_steps == ESteps.None || _steps == ESteps.Done)
+            {
                 return;
+            }
 
             if (_steps == ESteps.CreateRequest)
             {
@@ -51,7 +59,9 @@ namespace YooAsset
                 DownloadedBytes = (long)_webRequest.downloadedBytes;
                 Progress = _requestOperation.progress;
                 if (_requestOperation.isDone == false)
+                {
                     return;
+                }
 
                 if (CheckRequestResult())
                 {
@@ -86,6 +96,7 @@ namespace YooAsset
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         private void CreateWebRequest()
         {
             _webRequest = TTAssetBundle.GetAssetBundle(_requestURL);

@@ -1,20 +1,29 @@
 ﻿#if UNITY_WEBGL && DOUYINMINIGAME
 using YooAsset;
 
-internal partial class TTFSInitializeOperation : FSInitializeFileSystemOperation
+namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime.Operation
 {
-    private readonly TiktokFileSystem _fileSystem;
+    [UnityEngine.Scripting.Preserve]
+    public partial class TTFSInitializeOperation : FSInitializeFileSystemOperation
+    {
+        private readonly TiktokFileSystem _fileSystem;
 
-    public TTFSInitializeOperation(TiktokFileSystem fileSystem)
-    {
-        _fileSystem = fileSystem;
-    }
-    protected override void InternalStart()
-    {
-        Status = EOperationStatus.Succeed;
-    }
-    protected override void InternalUpdate()
-    {
+        [UnityEngine.Scripting.Preserve]
+        public TTFSInitializeOperation(TiktokFileSystem fileSystem)
+        {
+            _fileSystem = fileSystem;
+        }
+
+        [UnityEngine.Scripting.Preserve]
+        protected override void InternalStart()
+        {
+            Status = EOperationStatus.Succeed;
+        }
+
+        [UnityEngine.Scripting.Preserve]
+        protected override void InternalUpdate()
+        {
+        }
     }
 }
 #endif

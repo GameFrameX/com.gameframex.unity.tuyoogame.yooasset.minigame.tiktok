@@ -1,8 +1,10 @@
 ﻿#if UNITY_WEBGL && DOUYINMINIGAME
 using UnityEngine;
+using YooAsset;
 
-namespace YooAsset
+namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime.Operation.@internal
 {
+    [UnityEngine.Scripting.Preserve]
     public class LoadTiktokAssetBundleOperation : LoadWebAssetBundleOperation
     {
         protected enum ESteps
@@ -23,20 +25,26 @@ namespace YooAsset
         private int _failedTryAgain;
         private ESteps _steps = ESteps.None;
 
-
-        internal LoadTiktokAssetBundleOperation(PackageBundle bundle, DownloadFileOptions options)
+        [UnityEngine.Scripting.Preserve]
+        public LoadTiktokAssetBundleOperation(PackageBundle bundle, DownloadFileOptions options)
         {
             _bundle = bundle;
             _options = options;
         }
+
+        [UnityEngine.Scripting.Preserve]
         protected override void InternalStart()
         {
             _steps = ESteps.CreateRequest;
         }
+
+        [UnityEngine.Scripting.Preserve]
         protected override void InternalUpdate()
         {
             if (_steps == ESteps.None || _steps == ESteps.Done)
+            {
                 return;
+            }
 
             // 创建下载器
             if (_steps == ESteps.CreateRequest)
@@ -56,7 +64,9 @@ namespace YooAsset
                 DownloadProgress = _unityAssetBundleRequestOp.DownloadProgress;
                 DownloadedBytes = _unityAssetBundleRequestOp.DownloadedBytes;
                 if (_unityAssetBundleRequestOp.IsDone == false)
+                {
                     return;
+                }
 
                 if (_unityAssetBundleRequestOp.Status == EOperationStatus.Succeed)
                 {
@@ -100,14 +110,19 @@ namespace YooAsset
         /// <summary>
         /// 获取网络请求地址
         /// </summary>
+        [UnityEngine.Scripting.Preserve]
         private string GetRequestURL()
         {
             // 轮流返回请求地址
             _requestCount++;
             if (_requestCount % 2 == 0)
+            {
                 return _options.FallbackURL;
+            }
             else
+            {
                 return _options.MainURL;
+            }
         }
     }
 }

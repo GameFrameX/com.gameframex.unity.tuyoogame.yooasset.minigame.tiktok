@@ -2,112 +2,126 @@
 using UnityEngine;
 using YooAsset;
 
-internal class TTFSDownloadFileOperation : FSDownloadFileOperation
+namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime.Operation
 {
-    protected enum ESteps
+    [UnityEngine.Scripting.Preserve]
+    class TTFSDownloadFileOperation : FSDownloadFileOperation
     {
-        None,
-        CreateRequest,
-        CheckRequest,
-        TryAgain,
-        Done,
-    }
-
-    private readonly TiktokFileSystem _fileSystem;
-    private readonly DownloadFileOptions _options;
-    private UnityWebCacheRequestOperation _webCacheRequestOp;
-    private int _requestCount = 0;
-    private float _tryAgainTimer;
-    private int _failedTryAgain;
-    private ESteps _steps = ESteps.None;
-
-    internal TTFSDownloadFileOperation(TiktokFileSystem fileSystem, PackageBundle bundle, DownloadFileOptions options) : base(bundle)
-    {
-        _fileSystem = fileSystem;
-        _options = options;
-    }
-
-    protected override void InternalStart()
-    {
-        _steps = ESteps.CreateRequest;
-    }
-
-    protected override void InternalUpdate()
-    {
-        // 创建下载器
-        if (_steps == ESteps.CreateRequest)
+        protected enum ESteps
         {
-            string url = GetRequestURL();
-            _webCacheRequestOp = new UnityWebCacheRequestOperation(url);
-            _webCacheRequestOp.StartOperation();
-            AddChildOperation(_webCacheRequestOp);
-            _steps = ESteps.CheckRequest;
+            None,
+            CreateRequest,
+            CheckRequest,
+            TryAgain,
+            Done,
         }
 
-        // 检测下载结果
-        if (_steps == ESteps.CheckRequest)
+        private readonly TiktokFileSystem _fileSystem;
+        private readonly DownloadFileOptions _options;
+        private UnityWebCacheRequestOperation _webCacheRequestOp;
+        private int _requestCount = 0;
+        private float _tryAgainTimer;
+        private int _failedTryAgain;
+        private ESteps _steps = ESteps.None;
+
+        [UnityEngine.Scripting.Preserve]
+        public TTFSDownloadFileOperation(TiktokFileSystem fileSystem, PackageBundle bundle, DownloadFileOptions options) : base(bundle)
         {
-            _webCacheRequestOp.UpdateOperation();
-            Progress = _webCacheRequestOp.Progress;
-            DownloadProgress = _webCacheRequestOp.DownloadProgress;
-            DownloadedBytes = _webCacheRequestOp.DownloadedBytes;
-            if (_webCacheRequestOp.IsDone == false)
-                return;
+            _fileSystem = fileSystem;
+            _options = options;
+        }
 
-            if (_webCacheRequestOp.Status == EOperationStatus.Succeed)
+        [UnityEngine.Scripting.Preserve]
+        protected override void InternalStart()
+        {
+            _steps = ESteps.CreateRequest;
+        }
+
+        [UnityEngine.Scripting.Preserve]
+        protected override void InternalUpdate()
+        {
+            // 创建下载器
+            if (_steps == ESteps.CreateRequest)
             {
-                _steps = ESteps.Done;
-                Status = EOperationStatus.Succeed;
-
-                //TODO 需要验证插件请求器的下载进度
-                DownloadProgress = 1f;
-                DownloadedBytes = Bundle.FileSize;
-                Progress = 1f;
+                string url = GetRequestURL();
+                _webCacheRequestOp = new UnityWebCacheRequestOperation(url);
+                _webCacheRequestOp.StartOperation();
+                AddChildOperation(_webCacheRequestOp);
+                _steps = ESteps.CheckRequest;
             }
-            else
+
+            // 检测下载结果
+            if (_steps == ESteps.CheckRequest)
             {
-                if (_failedTryAgain > 0)
+                _webCacheRequestOp.UpdateOperation();
+                Progress = _webCacheRequestOp.Progress;
+                DownloadProgress = _webCacheRequestOp.DownloadProgress;
+                DownloadedBytes = _webCacheRequestOp.DownloadedBytes;
+                if (_webCacheRequestOp.IsDone == false)
                 {
-                    _steps = ESteps.TryAgain;
-                    YooLogger.Warning($"Failed download : {_webCacheRequestOp.URL} Try again !");
+                    return;
+                }
+
+                if (_webCacheRequestOp.Status == EOperationStatus.Succeed)
+                {
+                    _steps = ESteps.Done;
+                    Status = EOperationStatus.Succeed;
+
+                    //TODO 需要验证插件请求器的下载进度
+                    DownloadProgress = 1f;
+                    DownloadedBytes = Bundle.FileSize;
+                    Progress = 1f;
                 }
                 else
                 {
-                    _steps = ESteps.Done;
-                    Status = EOperationStatus.Failed;
-                    Error = _webCacheRequestOp.Error;
-                    YooLogger.Error(Error);
+                    if (_failedTryAgain > 0)
+                    {
+                        _steps = ESteps.TryAgain;
+                        YooLogger.Warning($"Failed download : {_webCacheRequestOp.URL} Try again !");
+                    }
+                    else
+                    {
+                        _steps = ESteps.Done;
+                        Status = EOperationStatus.Failed;
+                        Error = _webCacheRequestOp.Error;
+                        YooLogger.Error(Error);
+                    }
+                }
+            }
+
+            // 重新尝试下载
+            if (_steps == ESteps.TryAgain)
+            {
+                _tryAgainTimer += Time.unscaledDeltaTime;
+                if (_tryAgainTimer > 1f)
+                {
+                    _tryAgainTimer = 0f;
+                    _failedTryAgain--;
+                    Progress = 0f;
+                    DownloadProgress = 0f;
+                    DownloadedBytes = 0;
+                    _steps = ESteps.CreateRequest;
                 }
             }
         }
 
-        // 重新尝试下载
-        if (_steps == ESteps.TryAgain)
+        /// <summary>
+        /// 获取网络请求地址
+        /// </summary>
+        [UnityEngine.Scripting.Preserve]
+        private string GetRequestURL()
         {
-            _tryAgainTimer += Time.unscaledDeltaTime;
-            if (_tryAgainTimer > 1f)
+            // 轮流返回请求地址
+            _requestCount++;
+            if (_requestCount % 2 == 0)
             {
-                _tryAgainTimer = 0f;
-                _failedTryAgain--;
-                Progress = 0f;
-                DownloadProgress = 0f;
-                DownloadedBytes = 0;
-                _steps = ESteps.CreateRequest;
+                return _options.FallbackURL;
+            }
+            else
+            {
+                return _options.MainURL;
             }
         }
-    }
-
-    /// <summary>
-    /// 获取网络请求地址
-    /// </summary>
-    private string GetRequestURL()
-    {
-        // 轮流返回请求地址
-        _requestCount++;
-        if (_requestCount % 2 == 0)
-            return _options.FallbackURL;
-        else
-            return _options.MainURL;
     }
 }
 #endif
