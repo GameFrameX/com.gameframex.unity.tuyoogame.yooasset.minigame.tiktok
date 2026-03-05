@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/compare/1.1.0...1.1.1) (2026-03-05)
+
+
+### Bug Fixes
+
+* 为抖音小游戏文件系统操作类添加Preserve特性防止代码裁剪 ([17d30ab](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/commit/17d30ab29feffb5c1e9a64d99bf3115014ec831e))
+
 # [1.1.0](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/compare/1.0.0...1.1.0) (2026-03-05)
 
 
