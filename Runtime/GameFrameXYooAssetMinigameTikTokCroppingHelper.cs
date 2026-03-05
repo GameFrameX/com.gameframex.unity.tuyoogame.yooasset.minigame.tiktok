@@ -29,7 +29,7 @@
 //  Official Documentation: https://gameframex.doc.alianblank.com/
 // ==========================================================================================
 
-using GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime.Operation;
+
 using UnityEngine;
 
 namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
@@ -38,16 +38,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
     {
         private void Start()
         {
-            _ = typeof(TiktokFileSystem);
-            _ = typeof(TiktokFileSystemCreater);
-            _ = typeof(TTFSDownloadFileOperation);
-            _ = typeof(TTFSInitializeOperation);
-            _ = typeof(TTFSLoadBundleOperation);
-            _ = typeof(TTFSLoadPackageManifestOperation);
-            _ = typeof(TTFSRequestPackageVersionOperation);
-            _ = typeof(global::GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime.Operation.@internal.LoadTiktokAssetBundleOperation);
-            _ = typeof(global::GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime.BundleResult.TtAssetBundleResult);
-            _ = typeof(global::GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime.Operation.@internal.UnityTiktokAssetBundleRequestOperation);
+
         }
     }
 }

@@ -4,6 +4,7 @@
   "references": [
     "StarkWebGL",
     "TTWebGL",
+    "YooAsset.Runtime",
     "YooAsset"
   ],
   "includePlatforms": [],
