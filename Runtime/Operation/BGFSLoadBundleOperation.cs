@@ -4,6 +4,7 @@ using YooAsset;
 
 namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
 {
+    [UnityEngine.Scripting.Preserve]
     public class BGFSLoadBundleOperation : FSLoadBundleOperation
     {
         private enum ESteps
@@ -18,19 +19,26 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
         private UnityWebRequest _webRequest;
         private ESteps _steps = ESteps.None;
 
+        [UnityEngine.Scripting.Preserve]
         internal BGFSLoadBundleOperation(ByteGameFileSystem fileSystem, PackageBundle bundle)
         {
             _fileSystem = fileSystem;
             _bundle = bundle;
         }
+
+        [UnityEngine.Scripting.Preserve]
         public override void InternalOnStart()
         {
             _steps = ESteps.LoadBundleFile;
         }
+
+        [UnityEngine.Scripting.Preserve]
         public override void InternalOnUpdate()
         {
             if (_steps == ESteps.None || _steps == ESteps.Done)
+            {
                 return;
+            }
 
             if (_steps == ESteps.LoadBundleFile)
             {
@@ -45,7 +53,9 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
                 DownloadedBytes = (long)_webRequest.downloadedBytes;
                 Progress = DownloadProgress;
                 if (_webRequest.isDone == false)
+                {
                     return;
+                }
 
                 if (CheckRequestResult())
                 {
@@ -60,6 +70,8 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
                 }
             }
         }
+
+        [UnityEngine.Scripting.Preserve]
         public override void InternalWaitForAsyncComplete()
         {
             if (_steps != ESteps.Done)
@@ -70,10 +82,13 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
                 UnityEngine.Debug.LogError(Error);
             }
         }
+
+        [UnityEngine.Scripting.Preserve]
         public override void AbortDownloadOperation()
         {
         }
 
+        [UnityEngine.Scripting.Preserve]
         private bool CheckRequestResult()
         {
 #if UNITY_2020_3_OR_NEWER

@@ -3,8 +3,10 @@ using YooAsset;
 
 namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
 {
+    [UnityEngine.Scripting.Preserve]
     internal class RequestByteGamePackageHashOperation : AsyncOperationBase
     {
+        [UnityEngine.Scripting.Preserve]
         private enum ESteps
         {
             None,
@@ -24,69 +26,84 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
         /// </summary>
         public string PackageHash { private set; get; }
 
-
+        [UnityEngine.Scripting.Preserve]
         public RequestByteGamePackageHashOperation(ByteGameFileSystem fileSystem, string packageVersion, int timeout)
         {
             _fileSystem = fileSystem;
             _packageVersion = packageVersion;
             _timeout = timeout;
         }
+
+        [UnityEngine.Scripting.Preserve]
         public override void InternalOnStart()
         {
             _requestCount = WebRequestCounter.GetRequestFailedCount(_fileSystem.PackageName, nameof(RequestByteGamePackageHashOperation));
             _steps = ESteps.RequestPackageHash;
         }
+
+        [UnityEngine.Scripting.Preserve]
         public override void InternalOnUpdate()
         {
             if (_steps == ESteps.None || _steps == ESteps.Done)
-                return;
-
-            if (_steps == ESteps.RequestPackageHash)
             {
-                if (_webTextRequestOp == null)
-                {
-                    string fileName = YooAssetSettingsData.GetPackageHashFileName(_fileSystem.PackageName, _packageVersion);
-                    string url = GetRequestURL(fileName);
-                    _webTextRequestOp = new UnityWebTextRequestOperation(url, _timeout);
-                    OperationSystem.StartOperation(_fileSystem.PackageName, _webTextRequestOp);
-                }
+                return;
+            }
 
-                Progress = _webTextRequestOp.Progress;
-                if (_webTextRequestOp.IsDone == false)
-                    return;
+            if (_steps != ESteps.RequestPackageHash)
+            {
+                return;
+            }
 
-                if (_webTextRequestOp.Status == EOperationStatus.Succeed)
+            if (_webTextRequestOp == null)
+            {
+                string fileName = YooAssetSettingsData.GetPackageHashFileName(_fileSystem.PackageName, _packageVersion);
+                string url = GetRequestURL(fileName);
+                _webTextRequestOp = new UnityWebTextRequestOperation(url, _timeout);
+                OperationSystem.StartOperation(_fileSystem.PackageName, _webTextRequestOp);
+            }
+
+            Progress = _webTextRequestOp.Progress;
+            if (_webTextRequestOp.IsDone == false)
+            {
+                return;
+            }
+
+            if (_webTextRequestOp.Status == EOperationStatus.Succeed)
+            {
+                PackageHash = _webTextRequestOp.Result;
+                if (string.IsNullOrEmpty(PackageHash))
                 {
-                    PackageHash = _webTextRequestOp.Result;
-                    if (string.IsNullOrEmpty(PackageHash))
-                    {
-                        _steps = ESteps.Done;
-                        Status = EOperationStatus.Failed;
-                        Error = $"Wechat package hash file content is empty !";
-                    }
-                    else
-                    {
-                        _steps = ESteps.Done;
-                        Status = EOperationStatus.Succeed;
-                    }
+                    _steps = ESteps.Done;
+                    Status = EOperationStatus.Failed;
+                    Error = $"Wechat package hash file content is empty !";
                 }
                 else
                 {
                     _steps = ESteps.Done;
-                    Status = EOperationStatus.Failed;
-                    Error = _webTextRequestOp.Error;
-                    WebRequestCounter.RecordRequestFailed(_fileSystem.PackageName, nameof(RequestByteGamePackageHashOperation));
+                    Status = EOperationStatus.Succeed;
                 }
+            }
+            else
+            {
+                _steps = ESteps.Done;
+                Status = EOperationStatus.Failed;
+                Error = _webTextRequestOp.Error;
+                WebRequestCounter.RecordRequestFailed(_fileSystem.PackageName, nameof(RequestByteGamePackageHashOperation));
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         private string GetRequestURL(string fileName)
         {
             // 轮流返回请求地址
             if (_requestCount % 2 == 0)
+            {
                 return _fileSystem.RemoteServices.GetRemoteMainURL(fileName);
+            }
             else
+            {
                 return _fileSystem.RemoteServices.GetRemoteFallbackURL(fileName);
+            }
         }
     }
 }

@@ -9,15 +9,20 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
     {
         private ByteGameFileSystem _fileSystem;
         private ESteps _steps = ESteps.None;
-    
+
+        [UnityEngine.Scripting.Preserve]
         public BGFSDownloadFileOperation(ByteGameFileSystem fileSystem, PackageBundle bundle, DownloadParam param) : base(bundle, param)
         {
             _fileSystem = fileSystem;
         }
+
+        [UnityEngine.Scripting.Preserve]
         public override void InternalOnStart()
         {
             _steps = ESteps.CreateRequest;
         }
+
+        [UnityEngine.Scripting.Preserve]
         public override void InternalOnUpdate()
         {
             // 创建下载器
@@ -83,6 +88,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             }
         }
 
+        [UnityEngine.Scripting.Preserve]
         private void CreateWebRequest()
         {
             //TODO : 抖音小游戏没有找到预下载方法
@@ -90,6 +96,8 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             _webRequest.disposeDownloadHandlerOnDispose = true;
             _webRequest.SendWebRequest();
         }
+
+        [UnityEngine.Scripting.Preserve]
         private void DisposeWebRequest()
         {
             if (_webRequest != null)

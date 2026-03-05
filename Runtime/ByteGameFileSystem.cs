@@ -10,6 +10,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
     [UnityEngine.Scripting.Preserve]
     public static class ByteGameFileSystemCreater
     {
+        [Preserve]
         public static FileSystemParameters CreateByteGameFileSystemParameters(IRemoteServices remoteServices = null)
         {
             string fileSystemClass = typeof(ByteGameFileSystem).FullName;
@@ -18,6 +19,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             return fileSystemParams;
         }
 
+        [Preserve]
         public static FileSystemParameters CreateByteGameFileSystemParameters(string buildinPackRoot)
         {
             string fileSystemClass = typeof(ByteGameFileSystem).FullName;
@@ -40,21 +42,25 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             private readonly string _webPackageRoot;
             protected readonly Dictionary<string, string> _mapping = new Dictionary<string, string>(10000);
 
+            [Preserve]
             public WebRemoteServices(string buildinPackRoot)
             {
                 _webPackageRoot = buildinPackRoot;
             }
 
+            [Preserve]
             string IRemoteServices.GetRemoteMainURL(string fileName)
             {
                 return GetFileLoadURL(fileName);
             }
 
+            [Preserve]
             string IRemoteServices.GetRemoteFallbackURL(string fileName)
             {
                 return GetFileLoadURL(fileName);
             }
 
+            [Preserve]
             private string GetFileLoadURL(string fileName)
             {
                 if (_mapping.TryGetValue(fileName, out string url) == false)
@@ -107,6 +113,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             PackageName = string.Empty;
         }
 
+        [Preserve]
         public virtual FSInitializeFileSystemOperation InitializeFileSystemAsync()
         {
             var operation = new BGFSInitializeOperation(this);
@@ -114,6 +121,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             return operation;
         }
 
+        [Preserve]
         public virtual FSLoadPackageManifestOperation LoadPackageManifestAsync(string packageVersion, int timeout)
         {
             var operation = new BGFSLoadPackageManifestOperation(this, packageVersion, timeout);
@@ -121,6 +129,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             return operation;
         }
 
+        [Preserve]
         public virtual FSRequestPackageVersionOperation RequestPackageVersionAsync(bool appendTimeTicks, int timeout)
         {
             var operation = new BGFSRequestPackageVersionOperation(this, timeout);
@@ -128,6 +137,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             return operation;
         }
 
+        [Preserve]
         public virtual FSClearAllBundleFilesOperation ClearAllBundleFilesAsync()
         {
             var operation = new FSClearAllBundleFilesCompleteOperation();
@@ -135,6 +145,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             return operation;
         }
 
+        [Preserve]
         public virtual FSClearUnusedBundleFilesOperation ClearUnusedBundleFilesAsync(PackageManifest manifest)
         {
             var operation = new FSClearUnusedBundleFilesCompleteOperation();
@@ -142,6 +153,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             return operation;
         }
 
+        [Preserve]
         public virtual FSDownloadFileOperation DownloadFileAsync(PackageBundle bundle, DownloadParam param)
         {
             param.MainURL = RemoteServices.GetRemoteMainURL(bundle.FileName);
@@ -151,6 +163,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             return operation;
         }
 
+        [Preserve]
         public virtual FSLoadBundleOperation LoadBundleFile(PackageBundle bundle)
         {
             var operation = new BGFSLoadBundleOperation(this, bundle);
@@ -158,6 +171,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             return operation;
         }
 
+        [Preserve]
         public virtual void UnloadBundleFile(PackageBundle bundle, object result)
         {
             AssetBundle assetBundle = result as AssetBundle;
@@ -167,6 +181,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             }
         }
 
+        [Preserve]
         public virtual void SetParameter(string name, object value)
         {
             if (name == FileSystemParametersDefine.REMOTE_SERVICES)
@@ -179,6 +194,7 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             }
         }
 
+        [Preserve]
         public virtual void OnCreate(string packageName, string rootDirectory)
         {
             PackageName = packageName;
@@ -193,21 +209,25 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             _fileSystemManager = StarkSDK.API.GetStarkFileSystemManager();
         }
 
+        [Preserve]
         public virtual void OnUpdate()
         {
         }
 
+        [Preserve]
         public virtual bool Belong(PackageBundle bundle)
         {
             return true;
         }
 
+        [Preserve]
         public virtual bool Exists(PackageBundle bundle)
         {
             string filePath = GetCacheFileLoadPath(bundle);
             return _fileSystemManager.AccessSync(filePath);
         }
 
+        [Preserve]
         public virtual bool NeedDownload(PackageBundle bundle)
         {
             if (Belong(bundle) == false)
@@ -218,21 +238,25 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
             return Exists(bundle) == false;
         }
 
+        [Preserve]
         public virtual bool NeedUnpack(PackageBundle bundle)
         {
             return false;
         }
 
+        [Preserve]
         public virtual bool NeedImport(PackageBundle bundle)
         {
             return false;
         }
 
+        [Preserve]
         public virtual byte[] ReadFileData(PackageBundle bundle)
         {
             throw new System.NotImplementedException();
         }
 
+        [Preserve]
         public virtual string ReadFileText(PackageBundle bundle)
         {
             throw new System.NotImplementedException();
