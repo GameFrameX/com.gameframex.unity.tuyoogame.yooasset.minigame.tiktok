@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/compare/1.0.0...1.1.0) (2026-03-05)
+
+
+### Features
+
+* 添加 TikTok 小游戏裁剪辅助类用于确保类型引用 ([9b29af9](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/commit/9b29af9c3b142a3a3893503a79f843a97385cd79))
+
 # 1.0.0 (2026-03-05)
 
 
