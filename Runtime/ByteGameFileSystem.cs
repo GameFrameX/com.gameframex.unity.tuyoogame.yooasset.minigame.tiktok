@@ -277,5 +277,5 @@ namespace GameFrameX.Asset.YooAsset.Minigame.TikTok.Runtime
 
         #endregion
     }
-#endif
 }
+#endif
