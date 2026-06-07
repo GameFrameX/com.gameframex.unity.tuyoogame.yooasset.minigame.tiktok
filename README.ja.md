@@ -1,20 +1,24 @@
 <div align="center">
 
-<img src="https://download.alianblank.com/gameframex/gameframex_logo_320.png" alt="GameFrameX Logo" width="160" height="160" />
+<img src="https://download.alianblank.com/gameframex/gameframex_logo_320.png" alt="Game Frame X Logo" width="160" />
 
 # Game Frame X YooAsset MiniGame TikTok
 
 [![License](https://img.shields.io/github/license/GameFrameX/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok)](https://github.com/GameFrameX/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/blob/main/LICENSE.md)
 [![Version](https://img.shields.io/github/v/release/GameFrameX/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok)](https://github.com/GameFrameX/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/releases)
+[![Documentation](https://img.shields.io/badge/Documentation-docs-blue)](https://gameframex.doc.alianblank.com)
 
 インディゲーム開発者向けオールインワンソリューション · インディ開発者の夢を支援
 
-[ドキュメント](https://gameframex.doc.alianblank.com) | [クイックスタート](https://gameframex.doc.alianblank.com) | [QQグループ](https://qm.qq.com/q/urKenB9AU)
+<br />
+
+[ドキュメント](https://gameframex.doc.alianblank.com) · [クイックスタート](#quick-start) · [QQグループ](https://qm.qq.com/q/urKenB9AU)
+
+<br />
 
 [English](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md) | **日本語** | [한국어](README.ko.md)
 
 </div>
-
 ## プロジェクト概要
 
 GameFrameX の YooAsset TikTok ミニゲームランタイムコンポーネント。Unity WebGL プラットフォーム向けに、TikTok ミニゲームのファイルシステムとアセットバンドル読み込みワークフローの適配実装を提供します。
