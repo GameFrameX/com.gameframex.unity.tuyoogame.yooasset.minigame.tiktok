@@ -186,7 +186,7 @@ APPENDIX: How to apply the Apache License to your work.
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-Copyright [2023] [ALianBlank of copyright owner][alianblank@outlook.com][https://alianblank.com/][https://github.com/gameframex/]
+Copyright [2023] [ALianBlank of copyright owner][alianblank@outlook.com][https://alianblank.com/]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
