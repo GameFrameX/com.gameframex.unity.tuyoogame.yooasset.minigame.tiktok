@@ -39,7 +39,9 @@ GameFrameX YooAsset TikTok MiniGame runtime component for Unity WebGL, providing
 - Conditional compilation: DOUYINMINIGAME
 - Dependencies: YooAsset, StarkWebGL, TTWebGL
 
-## Installation
+## Quick Start
+
+### Installation
 
 ### Installation
 
@@ -72,7 +74,7 @@ Then add the package to `dependencies`:
 ```
 
 
-## Usage
+## Usage Examples
 
 1. Ensure the TikTok MiniGame SDK is integrated and the `DOUYINMINIGAME` macro is enabled
 2. Use `TiktokFileSystemCreater.CreateFileSystemParameters(...)` to generate file system parameters
