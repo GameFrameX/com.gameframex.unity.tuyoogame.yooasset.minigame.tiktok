@@ -1,3 +1,11 @@
+## [1.1.2](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/compare/1.1.1...1.1.2) (2026-06-07)
+
+
+### Bug Fixes
+
+* 统一 LICENSE.md 为 Apache 2.0 标准完整文本 ([0b8fc4f](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/commit/0b8fc4f9b0eb5d01972476c1c1de7c7baf23369d))
+* 补全包规范文件（LICENSE/CHANGELOG/URL 字段/unity 字段） ([ad84551](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/commit/ad845517c86d0222b208d5e86cae884fa647b1da))
+
 ## [1.1.1](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/compare/1.1.0...1.1.1) (2026-03-05)
 
 
