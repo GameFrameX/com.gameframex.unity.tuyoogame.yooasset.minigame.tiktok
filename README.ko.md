@@ -39,17 +39,38 @@ GameFrameX의 YooAsset TikTok 미니게임 런타임 컴포넌트로, Unity WebG
 - 조건부 컴파일: DOUYINMINIGAME
 - 의존성: YooAsset, StarkWebGL, TTWebGL
 
-## 설치 방법 (택 1)
+## 설치
 
-1. `manifest.json`의 `dependencies`에 추가:
-   ```json
-   {
-     "com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok": "https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok.git"
-   }
-   ```
-2. Unity Package Manager에서 Git URL을 사용하여 추가:
-   https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok.git
-3. 저장소를 직접 다운로드하여 Unity 프로젝트의 `Packages` 디렉토리에 배치
+### 설치
+
+Unity 프로젝트의 `Packages/manifest.json`을 편집하여 `scopedRegistries` 섹션을 추가하세요:
+
+```json
+{
+  "scopedRegistries": [
+    {
+      "name": "GameFrameX",
+      "url": "https://gameframex.upm.alianblank.uk",
+      "scopes": [
+        "com.gameframex"
+      ]
+    }
+  ]
+}
+```
+
+`scopes`는 이 레지스트리를 통해 어떤 패키지를 해석할지 제어합니다. `com.gameframex`로 시작하는 패키지만 이 레지스트리에서 가져옵니다.
+
+Then add the package to `dependencies`:
+
+```json
+{
+  "dependencies": {
+    "com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok": "1.1.1"
+  }
+}
+```
+
 
 ## 사용 방법
 

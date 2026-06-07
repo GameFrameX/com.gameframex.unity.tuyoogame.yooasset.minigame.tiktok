@@ -39,17 +39,38 @@ GameFrameX YooAsset TikTok MiniGame runtime component for Unity WebGL, providing
 - Conditional compilation: DOUYINMINIGAME
 - Dependencies: YooAsset, StarkWebGL, TTWebGL
 
-## Installation (choose one)
+## Installation
 
-1. Add to `manifest.json` dependencies:
-   ```json
-   {
-     "com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok": "https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok.git"
-   }
-   ```
-2. Add via Unity Package Manager using Git URL:
-   https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok.git
-3. Download the repository directly and place it in the Unity project's `Packages` directory
+### Installation
+
+Edit your Unity project's `Packages/manifest.json` and add the `scopedRegistries` section:
+
+```json
+{
+  "scopedRegistries": [
+    {
+      "name": "GameFrameX",
+      "url": "https://gameframex.upm.alianblank.uk",
+      "scopes": [
+        "com.gameframex"
+      ]
+    }
+  ]
+}
+```
+
+`scopes` controls which packages are resolved through this registry. Only packages whose names start with `com.gameframex` will be fetched from it.
+
+Then add the package to `dependencies`:
+
+```json
+{
+  "dependencies": {
+    "com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok": "1.1.1"
+  }
+}
+```
+
 
 ## Usage
 
