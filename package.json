@@ -19,7 +19,7 @@
     "url": "https://alianblank.com/"
   },
   "dependencies": {
-    "com.gameframex.unity.tuyoogame.yooasset": "1.0.0"
+    "com.gameframex.unity.tuyoogame.yooasset": "2.9.4"
   },
   "publishConfig": {
     "access": "public",
