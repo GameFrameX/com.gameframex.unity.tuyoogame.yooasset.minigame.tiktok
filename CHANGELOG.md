@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/compare/1.1.2...1.1.3) (2026-07-30)
+
+
+### Bug Fixes
+
+* 更新依赖项 com.gameframex.unity.tuyoogame.yooasset 至 2.9.4 ([2aeb49b](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/commit/2aeb49b291e1ee9487c208a9131f288c4d1e0397))
+
 ## [1.1.2](https://github.com/gameframex/com.gameframex.unity.tuyoogame.yooasset.minigame.tiktok/compare/1.1.1...1.1.2) (2026-06-07)
 
 
